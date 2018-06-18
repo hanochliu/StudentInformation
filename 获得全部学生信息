@@ -1,0 +1,25 @@
+//获得全部学生信息
+	public List<Student> findAllStudent() {
+		DBUtil db = new DBUtil();
+		String sql = "select * from student";
+		ResultSet rs = null;
+		List<Student> stList = new ArrayList<Student>();
+		try {
+			db.getConnection();
+			rs = db.executeQuery(sql);
+			while(rs.next()) {
+				int sid = rs.getInt("sid");
+				String sname = rs.getString("sname");
+				String course = rs.getString("course");
+				int score = rs.getInt("score");
+				int cid = rs.getInt("cid");
+				Student st = new Student(sid, sname, course, score, cid);
+				stList.add(st);
+			}
+			db.colseAll();
+			return stList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
