@@ -1,0 +1,25 @@
+//获得专业信息
+	public List<Specialty> findAllSpecialty() {
+		DBUtil db = new DBUtil();
+		String sql = "select * from specialty";
+		ResultSet rs = null;
+		List<Specialty> cList = new ArrayList<Specialty>();
+		try {
+			db.getConnection();
+			rs = db.executeQuery(sql);
+			while(rs.next()) {
+				int cid = rs.getInt("cid");
+				String cname = rs.getString("cname");
+				Specialty specialty = new Specialty();
+				specialty.setCid(cid);
+				specialty.setCname(cname);
+				cList.add(specialty);
+			}
+			db.colseAll();
+			return cList;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
